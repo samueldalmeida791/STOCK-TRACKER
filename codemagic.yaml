@@ -1,14 +1,22 @@
 workflows:
-  stock_tracker_workflow:
-    name: iOS Debug Workflow
+  stock_tracker_android:
+    name: Android Build Workflow
     max_build_duration: 60
     environment:
       flutter: stable
-      xcode: latest
+      android: latest
     scripts:
       - name: Install dependencies
         script: flutter pub get
-      - name: Build iOS
-        script: flutter build ios --debug
+      - name: Build APK (debug)
+        script: flutter build apk --debug
+      # Optional: Build release APK
+      - name: Build APK (release)
+        script: flutter build apk --release
+      # Optional: Build App Bundle (AAB) for Play Store
+      - name: Build App Bundle
+        script: flutter build appbundle --release
     artifacts:
-      - build/ios/iphoneos/Runner.app
+      - build/app/outputs/flutter-apk/app-debug.apk
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/bundle/release/app-release.aab
